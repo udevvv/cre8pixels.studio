@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cre8pixels studio - We Build Brands</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --background: #000000;
+            --foreground: #e5e5e5;
+            --primary: #8A2BE2; /* BlueViolet */
+            --secondary: #FF69B4; /* HotPink */
+            --glow-color: rgba(138, 43, 226, 0.5);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background);
+            color: var(--foreground);
+        }
+
+        .hero-bg {
+            background-color: #050505;
+            background-image: 
+                radial-gradient(circle at 25px 25px, rgba(255, 255, 255, 0.03) 2%, transparent 0%),
+                radial-gradient(circle at 75px 75px, rgba(255, 255, 255, 0.03) 2%, transparent 0%);
+            background-size: 100px 100px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 800px;
+            height: 800px;
+            background-image: radial-gradient(circle, var(--glow-color), transparent 60%);
+            filter: blur(100px);
+            opacity: 0.4;
+            animation: pulse-glow 10s infinite alternate;
+        }
+
+        @keyframes pulse-glow {
+            from { transform: translate(-50%, -50%) scale(0.8); opacity: 0.3; }
+            to { transform: translate(-50%, -50%) scale(1.2); opacity: 0.5; }
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .glass-header {
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .animated-button {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            z-index: 1;
+        }
+
+        .animated-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 150%;
+            padding-bottom: 150%;
+            background: linear-gradient(45deg, var(--secondary), var(--primary));
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            transition: transform 0.4s ease;
+            z-index: -1;
+        }
+
+        .animated-button:hover::before {
+            transform: translate(-50%, -50%) scale(2);
+        }
+        
+        .card {
+            background-color: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .card .glow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at var(--x) var(--y), var(--glow-color) 0%, transparent 50%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .card:hover .glow {
+            opacity: 0.3;
+        }
+
+        .portfolio-item {
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        /* Scroll Animations */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .form-input {
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 15px rgba(138, 43, 226, 0.3);
+        }
+        .form-message {
+            display: none;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-top: 1rem;
+        }
+        .form-message.success {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: #10b981;
+        }
+        .form-message.error {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+        }
+
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 glass-header">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold tracking-tight">
+                <span class="gradient-text">cre8</span>pixels
+            </a>
+            <nav class="hidden md:flex items-center space-x-6">
+                <a href="#about" class="text-sm font-medium text-gray-300 hover:text-white transition-colors">About</a>
+                <a href="#services" class="text-sm font-medium text-gray-300 hover:text-white transition-colors">Services</a>
+                <a href="#work" class="text-sm font-medium text-gray-300 hover:text-white transition-colors">Work</a>
+                <a href="#testimonials" class="text-sm font-medium text-gray-300 hover:text-white transition-colors">Testimonials</a>
+                <a href="#contact" class="animated-button bg-transparent border border-purple-400 text-white font-medium py-2 px-4 rounded-lg">Contact Us</a>
+            </nav>
+            <button id="mobile-menu-button" class="md:hidden text-white">
+                <i data-lucide="menu"></i>
+            </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
+             <a href="#about" class="block py-2 text-sm text-gray-300 hover:text-white">About</a>
+             <a href="#services" class="block py-2 text-sm text-gray-300 hover:text-white">Services</a>
+             <a href="#work" class="block py-2 text-sm text-gray-300 hover:text-white">Work</a>
+             <a href="#testimonials" class="block py-2 text-sm text-gray-300 hover:text-white">Testimonials</a>
+             <a href="#contact" class="block mt-2 animated-button bg-purple-600 text-white font-medium py-2 px-4 rounded-lg text-center">Contact Us</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="min-h-screen hero-bg flex items-center pt-20">
+            <div class="container mx-auto px-6 text-center fade-in-up">
+                <h1 class="text-4xl md:text-7xl font-black tracking-tighter mb-4 leading-tight">
+                    We Weave <span class="gradient-text">Pixels</span> into<br>Powerful Brand Stories
+                </h1>
+                <p class="max-w-3xl mx-auto text-lg md:text-xl text-gray-400 mb-8">
+                    cre8pixels studio is a digital agency where creativity meets technology to build unforgettable brands and immersive digital experiences.
+                </p>
+                <a href="#work" class="animated-button inline-block bg-gradient-to-r from-primary to-secondary text-white font-bold py-4 px-10 rounded-full text-lg">
+                    View Our Work
+                </a>
+            </div>
+        </section>
+
+        <!-- About Us Section -->
+        <section id="about" class="py-20 md:py-32 overflow-hidden">
+            <div class="container mx-auto px-6">
+                <div class="grid md:grid-cols-2 gap-16 items-center">
+                    <div class="fade-in-up">
+                        <h2 class="text-3xl md:text-4xl font-bold mb-4">A Studio Built on Passion and Pixels</h2>
+                        <p class="text-gray-400 mb-6">
+                            We are a passionate team of designers, developers, and strategists dedicated to helping businesses thrive in the digital landscape. Our approach is collaborative and transparent, focusing on creating solutions that are not only beautiful but also achieve tangible business goals. We believe in the power of great design and smart technology to create meaningful connections between brands and their audiences. From initial concept to final launch, we're your partners in digital innovation.
+                        </p>
+                        <div class="flex space-x-8">
+                            <div>
+                                <p class="text-4xl font-bold gradient-text">50+</p>
+                                <p class="text-gray-500">Happy Clients</p>
+                            </div>
+                            <div>
+                                <p class="text-4xl font-bold gradient-text">120+</p>
+                                <p class="text-gray-500">Projects Done</p>
+                            </div>
+                             <div>
+                                <p class="text-4xl font-bold gradient-text">100%</p>
+                                <p class="text-gray-500">Client Satisfaction</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="fade-in-up" style="transition-delay: 200ms;">
+                        <img src="https://placehold.co/600x400/000000/8A2BE2?text=Our+Collaborative+Space" alt="Creative team at work" class="rounded-lg shadow-2xl">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="py-20 md:py-32 bg-black/30 overflow-hidden">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 fade-in-up">What We Do Best</h2>
+                <p class="max-w-2xl mx-auto text-gray-400 mb-12 fade-in-up" style="transition-delay: 100ms;">We offer a complete suite of digital services to bring your vision to life from every angle.</p>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 text-left">
+                    <!-- Service Card 1 -->
+                    <div class="card p-8 rounded-xl fade-in-up" style="transition-delay: 200ms;">
+                        <div class="glow"></div>
+                        <div class="bg-primary/10 text-primary w-16 h-16 rounded-full flex items-center justify-center mb-6">
+                            <i data-lucide="gem"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Branding & Identity</h3>
+                        <p class="text-gray-400 text-sm">We craft memorable brand identities—from logos and color palettes to voice and tone—that resonate with your target audience and stand out in a crowded market.</p>
+                    </div>
+                    <!-- Service Card 2 -->
+                    <div class="card p-8 rounded-xl fade-in-up" style="transition-delay: 300ms;">
+                        <div class="glow"></div>
+                        <div class="bg-secondary/10 text-secondary w-16 h-16 rounded-full flex items-center justify-center mb-6">
+                           <i data-lucide="layout-template"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">UI/UX & Web Design</h3>
+                        <p class="text-gray-400 text-sm">Our design process is human-centric, resulting in beautiful, intuitive, and responsive websites that provide seamless user experiences and drive conversions.</p>
+                    </div>
+                    <!-- Service Card 3 -->
+                    <div class="card p-8 rounded-xl fade-in-up" style="transition-delay: 400ms;">
+                        <div class="glow"></div>
+                        <div class="bg-green-400/10 text-green-400 w-16 h-16 rounded-full flex items-center justify-center mb-6">
+                            <i data-lucide="megaphone"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Digital Marketing</h3>
+                        <p class="text-gray-400 text-sm">We boost your online presence with data-driven SEO, content marketing, and social media strategies designed to attract, engage, and convert your ideal customers.</p>
+                    </div>
+                     <!-- Service Card 4 -->
+                    <div class="card p-8 rounded-xl fade-in-up" style="transition-delay: 500ms;">
+                        <div class="glow"></div>
+                        <div class="bg-yellow-400/10 text-yellow-400 w-16 h-16 rounded-full flex items-center justify-center mb-6">
+                            <i data-lucide="clapperboard"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Content Creation</h3>
+                        <p class="text-gray-400 text-sm">From compelling video production and professional photography to persuasive copywriting, we create high-quality content that tells your story and captivates your audience.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Work/Portfolio Section -->
+        <section id="work" class="py-20 md:py-32 overflow-hidden">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 fade-in-up">Our Latest Work</h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <a href="#" class="block portfolio-item group rounded-lg overflow-hidden fade-in-up" style="transition-delay: 200ms;">
+                        <img src="https://placehold.co/600x400/FF69B4/ffffff?text=E-commerce+Redesign" alt="E-commerce Redesign project" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-black/70 flex items-end p-6 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <div class="text-white">
+                                <h3 class="text-xl font-bold">Nova Commerce</h3>
+                                <p class="text-sm">E-commerce UX & Branding</p>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#" class="block portfolio-item group rounded-lg overflow-hidden fade-in-up" style="transition-delay: 300ms;">
+                        <img src="https://placehold.co/600x400/8A2BE2/ffffff?text=SaaS+Platform+UI" alt="SaaS Platform UI project" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                         <div class="absolute inset-0 bg-black/70 flex items-end p-6 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <div class="text-white">
+                                <h3 class="text-xl font-bold">Analytica SaaS</h3>
+                                <p class="text-sm">UI/UX Design</p>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#" class="block portfolio-item group rounded-lg overflow-hidden fade-in-up" style="transition-delay: 400ms;">
+                        <img src="https://placehold.co/600x400/10b981/ffffff?text=Brand+Identity+Launch" alt="Brand Identity Launch project" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                         <div class="absolute inset-0 bg-black/70 flex items-end p-6 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <div class="text-white">
+                                <h3 class="text-xl font-bold">GreenLeaf Organics</h3>
+                                <p class="text-sm">Brand Identity & Marketing</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section id="testimonials" class="py-20 md:py-32 bg-black/30 overflow-hidden">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 fade-in-up">What Our Clients Say</h2>
+                <div class="grid lg:grid-cols-3 gap-8">
+                    <!-- Testimonial 1 -->
+                    <div class="card p-8 rounded-xl fade-in-up" style="transition-delay: 200ms;">
+                        <div class="glow"></div>
+                        <p class="text-gray-300 mb-6">"Working with cre8pixels studio was a game-changer for our brand. Their attention to detail and creative vision is unparalleled. We've seen a significant increase in engagement since the launch."</p>
+                        <div class="flex items-center">
+                            <img src="https://placehold.co/48x48/8A2BE2/ffffff?text=JD" alt="Client 1 Avatar" class="w-12 h-12 rounded-full mr-4">
+                            <div>
+                                <h4 class="font-bold text-white">Jane Doe</h4>
+                                <p class="text-sm text-gray-400">CEO, Nova Commerce</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Testimonial 2 -->
+                    <div class="card p-8 rounded-xl fade-in-up" style="transition-delay: 300ms;">
+                        <div class="glow"></div>
+                        <p class="text-gray-300 mb-6">"The team at cre8pixels studio is incredibly talented and professional. They delivered a complex web application on time and exceeded all our expectations. Highly recommended!"</p>
+                         <div class="flex items-center">
+                            <img src="https://placehold.co/48x48/FF69B4/ffffff?text=JS" alt="Client 2 Avatar" class="w-12 h-12 rounded-full mr-4">
+                            <div>
+                                <h4 class="font-bold text-white">John Smith</h4>
+                                <p class="text-sm text-gray-400">CTO, Analytica SaaS</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Testimonial 3 -->
+                    <div class="card p-8 rounded-xl fade-in-up" style="transition-delay: 400ms;">
+                        <div class="glow"></div>
+                        <p class="text-gray-300 mb-6">"From branding to content creation, cre8pixels studio handled everything with such expertise. They truly understood our mission and brought it to life in a way we couldn't have imagined."</p>
+                         <div class="flex items-center">
+                            <img src="https://placehold.co/48x48/10b981/ffffff?text=EM" alt="Client 3 Avatar" class="w-12 h-12 rounded-full mr-4">
+                            <div>
+                                <h4 class="font-bold text-white">Emily Myers</h4>
+                                <p class="text-sm text-gray-400">Founder, GreenLeaf Organics</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Contact Section -->
+        <section id="contact" class="py-20 md:py-32">
+            <div class="container mx-auto px-6">
+                <div class="text-center fade-in-up">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4">Let's Create Together</h2>
+                    <p class="max-w-xl mx-auto text-gray-400 mb-12">Have a project in mind? We'd love to hear about it. Fill out the form below and we'll get back to you shortly.</p>
+                </div>
+                <div class="max-w-xl mx-auto fade-in-up" style="transition-delay: 200ms;">
+                    <form id="contact-form" class="space-y-6">
+                        <div>
+                            <label for="name" class="sr-only">Name</label>
+                            <input type="text" name="name" id="name" placeholder="Your Name" required class="form-input w-full rounded-lg py-3 px-4 text-white focus:outline-none">
+                        </div>
+                        <div>
+                            <label for="email" class="sr-only">Email</label>
+                            <input type="email" name="email" id="email" placeholder="Your Email" required class="form-input w-full rounded-lg py-3 px-4 text-white focus:outline-none">
+                        </div>
+                        <div>
+                            <label for="message" class="sr-only">Message</label>
+                            <textarea name="message" id="message" rows="4" placeholder="Your Message" required class="form-input w-full rounded-lg py-3 px-4 text-white focus:outline-none"></textarea>
+                        </div>
+                        <div>
+                            <button type="submit" id="submit-button" class="animated-button w-full bg-gradient-to-r from-primary to-secondary text-white font-bold py-3 px-6 rounded-lg flex items-center justify-center">
+                                Send Message
+                            </button>
+                        </div>
+                    </form>
+                    <div id="form-message" class="form-message"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-black/50 border-t border-white/5">
+        <div class="container mx-auto px-6 py-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <a href="#" class="text-xl font-bold tracking-tight mb-4 md:mb-0">
+                    <span class="gradient-text">cre8</span>pixels
+                </a>
+                <p class="text-sm text-gray-500">&copy; 2024 cre8pixels studio. All Rights Reserved.</p>
+                <div class="flex space-x-4 mt-4 md:mt-0">
+                    <a href="#" class="text-gray-400 hover:text-white"><i data-lucide="twitter"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white"><i data-lucide="instagram"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white"><i data-lucide="linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Firebase SDKs and custom scripts -->
+    <script type="module">
+        // Firebase Imports
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : { apiKey: "DEMO_KEY", authDomain: "", projectId: "" };
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-cre8pixels-studio';
+
+        let app, auth, db;
+        try {
+            app = initializeApp(firebaseConfig);
+            auth = getAuth(app);
+            db = getFirestore(app);
+            if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                 await signInWithCustomToken(auth, __initial_auth_token);
+            } else {
+                 await signInAnonymously(auth);
+            }
+        } catch (e) {
+            console.error("Firebase initialization failed:", e);
+            document.getElementById('submit-button').disabled = true;
+            document.getElementById('submit-button').textContent = 'Error: Service unavailable';
+        }
+
+        lucide.createIcons();
+
+        // --- Mobile Menu ---
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // --- Card Glow Effect ---
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--x', `${x}px`);
+                card.style.setProperty('--y', `${y}px`);
+            });
+        });
+
+        // --- Scroll Animations ---
+        const animatedElements = document.querySelectorAll('.fade-in-up');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        animatedElements.forEach(el => observer.observe(el));
+
+
+        // --- Contact Form Submission ---
+        const contactForm = document.getElementById('contact-form');
+        const submitButton = document.getElementById('submit-button');
+        const formMessage = document.getElementById('form-message');
+
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault(); 
+            
+            if (!db) {
+                 console.error("Firestore is not initialized.");
+                 formMessage.textContent = 'Service is currently unavailable. Please try again later.';
+                 formMessage.className = 'form-message error';
+                 formMessage.style.display = 'block';
+                 return;
+            }
+
+            submitButton.disabled = true;
+            submitButton.innerHTML = `<svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Sending...`;
+
+            const { name, email, message } = contactForm.elements;
+            
+            try {
+                const submissionsCollectionPath = `/artifacts/${appId}/public/data/contactSubmissions`;
+                await addDoc(collection(db, submissionsCollectionPath), {
+                    name: name.value,
+                    email: email.value,
+                    message: message.value,
+                    submittedAt: serverTimestamp()
+                });
+
+                formMessage.textContent = "Thank you! Your message has been sent successfully.";
+                formMessage.className = 'form-message success';
+                formMessage.style.display = 'block';
+                contactForm.reset(); 
+
+            } catch (error) {
+                console.error("Error adding document: ", error);
+                formMessage.textContent = "Sorry, there was an error sending your message. Please try again later.";
+                formMessage.className = 'form-message error';
+                formMessage.style.display = 'block';
+            } finally {
+                submitButton.disabled = false;
+                submitButton.innerHTML = 'Send Message';
+            }
+        });
+    </script>
+</body>
+</html>
